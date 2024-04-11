@@ -22,5 +22,6 @@ export default class HitBox extends Phaser.GameObjects.Zone {
             player.receiveDamage(damage);
         });
     }
+    
 }
 
