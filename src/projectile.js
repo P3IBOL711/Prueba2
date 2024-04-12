@@ -1,7 +1,8 @@
 import Phaser from 'phaser'
+import HitBox from './hitbox';
 
 /**
- * Clase que representa el proyectil generico del juego del juego.
+ * Clase que representa un enemigo del juego.
  */
 export default class Projectile extends Phaser.GameObjects.Sprite {
 
@@ -12,24 +13,12 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
      * @param {number} y Coordenada Y
     */
 
-    constructor(scene, x, y, image, targetEnemy, damage) {
-        super(scene, x, y, image);
-        this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
-        
-        this.scene.physics.add.overlap(this, this.scene.enemies, (projectile, enemy) => {
-            if (targetEnemy){
-                enemy.receiveDamage(damage)
-                this.destroy();
-            }
-        });
+    constructor(scene, x, y) {
+        super(scene, x, y, 'projectile');
+        // this.scene.add.existing(this);
+        // this.scene.physics.add.existing(this);
 
-        this.scene.physics.add.overlap(this, this.scene.player, (projectile, player) => {
-            if (!targetEnemy){
-                player.receiveDamage(damage)
-                this.destroy();
-            }
-        });
+        //this.body.setSize(this.width * 0.4, this.height * 0.85, true);
 
     }
 
@@ -43,8 +32,6 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
         // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
         // no se podrá ejecutar la animación del sprite. 
         super.preUpdate(t, dt);
-
-        // on overlap(fn(con quien) { ... })
         
     }
 

@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import HitBox from '../hitbox';
+import HitBox from './hitbox';
 import Enemy from './enemy';
 
 /**
@@ -34,9 +34,9 @@ export default class Knight extends Enemy {
 
         this.anims.create({
             key: 'die',
-            frames: this.anims.generateFrameNumbers('knight_spritesheet', { start: 16, end: 20 }),
-            frameRate: 5,
-            repeat: 0
+            frames: this.anims.generateFrameNumbers('knight_spritesheet', { start: 11, end: 15 }),
+            frameRate: 10,
+            repeat: -1
         });
 
         this.setScale(3);
@@ -45,16 +45,17 @@ export default class Knight extends Enemy {
 
         this.target = target;
 
-        this.life = 5;
-
-        this.damage = 1;
+        this.life = 10;
 
         this.body.setSize(this.width * 0.4, this.height * 0.85, true);
 
         // SE PODRIA MEJORAR CON this.on(animationstart) PERO NO SABEMOS HACERLO
         this.on(Phaser.Animations.Events.ANIMATION_START, () => {
             if (this.anims.getName() === 'attack'){
-                this.attackZone = new HitBox(this.scene, this.x + (this.flipX ? -65 : 65), this.y - 10, 60, 120, this.target, this.damage);
+                if (this.flipX)
+                    this.attackZone = new HitBox(this.scene, this.x - 65, this.y - 10, 60, 120, this.target, this.damage);
+                else
+                    this.attackZone = new HitBox(this.scene, this.x + 65, this.y - 10, 60, 120, this.target, this.damage);
             }
         })
 
@@ -64,6 +65,16 @@ export default class Knight extends Enemy {
             }
         })
 
+    }
+
+    receiveDamage(damage){
+        this.life -= damage;
+        if (this.life <= 0){
+            this.play('die', true);
+            this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+                this.destroy(true);
+            });
+        }
     }
 
     /**
@@ -77,21 +88,24 @@ export default class Knight extends Enemy {
         // no se podrá ejecutar la animación del sprite. 
         super.preUpdate(t, dt);
         // Preguntar si podría ser mas eficiente
-        if (this.life > 0) {
-            this.body.setOffset(this.width * (this.flipX ? 0.38 : 0.40), this.height * 0.26);
+        if(this.flipX)
+            this.body.setOffset(this.width * 0.38, this.height * 0.26);
+        else
+            this.body.setOffset(this.width * 0.40, this.height * 0.26);
 
-            if (Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) >= 50){
-                this.play('walking', true);
-                this.scene.physics.moveToObject(this, this.target, this.speed);
-            }
-            else {
-                // creáis la zone de ataque
-                // cambiáis la animación (que ya está)
-                this.play('attack', true);
-                this.body.setVelocity(0);
-                
-            } 
+        if (Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) >= 50){
+            this.setFlipX(this.body.velocity.x < 0);
+            this.play('walking', true);
+            this.scene.physics.moveToObject(this, this.target, this.speed);
         }
+        else {
+            // creáis la zone de ataque
+            // cambiáis la animación (que ya está)
+            this.play('attack', true);
+            this.body.setVelocity(0);
+            
+        }
+
     }
 
 }
