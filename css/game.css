@@ -3,32 +3,9 @@
   src: url('../assets/fonts/VT323Regular.ttf');
 }
 
-.image-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.image-container img {
-  display: block;
-  width: 30%; /* Adjust the width as per your requirement */
-  height: auto;
-}
-
-.overlay-text {
-  position: absolute;
-  top: 40%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  background-color: #ffffff00;
-  padding: 10px 20px; 
-  font-size: 20px; 
+h1 {
   text-align: center;
-  color:#5e1675ff;
+  color:black;
   font-family: 'pixelFont';
   font-size: 50px;
-  font-weight: bold; /* Add bold style */
 }
