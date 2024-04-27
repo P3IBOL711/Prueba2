@@ -16,6 +16,7 @@ import ar_r14 from './rooms/ar_r14';
 import ar_r15 from './rooms/ar_r15';
 import ar_sh1 from './rooms/ar_sh1';
 import ar_x1 from './rooms/ar_x1';
+import RoomInfo from './roomInfo';
 import em_r from './rooms/em_r'
 import Phaser from 'phaser'
 
@@ -40,14 +41,6 @@ let thereIsExit;
 let thereIsShop;
 let roomArray;
 let specialRoomArray;
-
-class RoomInfo {
-    constructor(roomJson, x, y) {
-        this.roomJson = roomJson;
-        this.x = x;
-        this.y = y;
-    }
-};
 
 
 
