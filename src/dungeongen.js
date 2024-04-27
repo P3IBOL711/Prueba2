@@ -449,7 +449,7 @@ export default class Dungeongen {
         entranceX = Math.floor(Math.random() * (N - 2)) + 1;
         entranceY = Math.floor(Math.random() * (M - 2)) + 1;
 
-        dungeo[entranceY][entranceX] = this.ar_e1;
+        dungeon[entranceY][entranceX] = this.ar_e1;
         // dungeon[entranceY][entranceX] = {
 
         //     name: "ar_e1",
