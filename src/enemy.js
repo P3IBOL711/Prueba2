@@ -12,7 +12,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
      * @param {number} x Coordenada X
      * @param {number} y Coordenada Y
      */
-    constructor(scene, x, y, target) {
+    constructor(scene, x, y) {
         super(scene, x, y, 'enemy');
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -24,8 +24,6 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         this.damage = 1;
         // Vida
         this.life = 1;
-        
-        this.target = target;
     }
 
     /**
