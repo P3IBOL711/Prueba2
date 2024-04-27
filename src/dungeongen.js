@@ -1,5 +1,4 @@
 
-import ar_e1 from './rooms/ar_e1'
 import ar_r2 from './rooms/ar_r2';
 import ar_r3 from './rooms/ar_r3';
 import ar_r4 from './rooms/ar_r4';
